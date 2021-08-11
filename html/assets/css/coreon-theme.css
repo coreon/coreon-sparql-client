@@ -1,0 +1,68 @@
+/* COREON THEME OVERRIDES */
+
+body {
+    background-color: #f0f3f4;
+}
+
+.examples-heading {
+    color: #717a53;
+    font-size: 1.4em;
+    margin-top: 0;
+}
+
+.mdc-button--raised:not(:disabled), .mdc-button--unelevated:not(:disabled) {
+    background-color: #717a53;
+}
+
+.mdc-button--raised:not(:disabled).secondary, .mdc-button--unelevated:not(:disabled).secondary {
+    background-color: #FFF;
+    color: #717a53;
+    margin-bottom: 12px;
+}
+
+
+.mdc-text-field__input, .mdc-text-field.mdc-text-field--textarea {
+    background-color: #FFF;
+    margin-bottom: 20px;
+}
+
+.mdc-notched-outline__leading, .mdc-notched-outline__notch, .mdc-notched-outline__trailing {
+    border: 0;
+}
+
+.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+    color: rgba(0,0,0,.6);
+}
+
+.q-results {
+    width: 98%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    background-color: #FFF;
+}
+
+.header {
+    padding: 0 10px;
+    margin: 0;
+    height: 32px;
+    line-height: 32px;
+    vertical-align: middle;
+    font-size: 1.4em;
+    font-weight: normal;
+    background-color: #f6f7f2;
+    box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.12);
+}
+
+tr {
+    border-top: 1px solid #e7f1f7;
+}
+
+tr td {
+    padding: 5px 5px 3px 5px;
+    font-size: 1.2em;
+    line-height: 1.5em;
+}
+
+.col-t {
+    padding-right: 64px;
+}

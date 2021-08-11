@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" class="no-js elg-gui-ie">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>
+        Create Document
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+
+    <!-- Required styles for MDC Web -->
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@5.1.0/dist/material-components-web.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.css?compile=false"/>
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="assets/css/application.css?compile=false"/>
+    <!-- A default font used for ELG portal -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<form id="elg-test-form">
+    <div id="elg-messages"></div>
+    <div class="mdc-layout-grid">
+        <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+                <div class="mdc-text-field mdc-text-field--textarea" data-mdc-auto-init="MDCTextField">
+                    <textarea id="query" name="query" class="mdc-text-field__input" rows="5" cols="30" placeholder="Type sparql to query"></textarea>
+                    <div class="mdc-notched-outline">
+                        <div class="mdc-notched-outline__leading"></div>
+                        <div class="mdc-notched-outline__notch">
+                            <label for="query" class="mdc-floating-label">SPARQL query</label>
+                        </div>
+                        <div class="mdc-notched-outline__trailing"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+                <div class="examples">
+                    <h2 class="examples-heading">Sample Queries</h2>
+                    <button class="mdc-button mdc-button--raised next secondary js-sample_1">First 10 term values</button>
+                    <button class="mdc-button mdc-button--raised next secondary js-sample_2">First 50 English terms, sorted from A to Z</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+                <button id="submit-form" class="mdc-button mdc-button--raised next" disabled>
+                <span class="mdc-button__label">
+                        Submit
+                </span>
+                </button>
+            </div>
+        </div>
+        <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+                <h3 class="mdc-typography--subtitle2" id="process-state">&nbsp;</h3>
+                <div role="progressbar" class="mdc-linear-progress mdc-linear-progress--closed" id="submitprogress" data-mdc-auto-init="MDCLinearProgress">
+                    <div class="mdc-linear-progress__buffering-dots"></div>
+                    <div class="mdc-linear-progress__buffer"></div>
+                    <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+                        <span class="mdc-linear-progress__bar-inner"></span>
+                    </div>
+                    <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+                        <span class="mdc-linear-progress__bar-inner"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="hidden" id="elg-annotate-result">
+    <div class="mdc-layout-grid">
+        <div class="mdc-layout-grid__inner" id="query-results">
+        </div>
+    </div>
+    <div class="mdc-layout-grid">
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
+            <button id="test-again" class="mdc-button mdc-button--raised next">
+            <span class="mdc-button__label">
+                    Back
+            </span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="assets/lib/require.js?compile=false"></script>
+<script type="text/javascript" src="assets/application.js?compile=false"></script>
+<script type="text/javascript" src="query.js"></script>
+</body>
+</html>

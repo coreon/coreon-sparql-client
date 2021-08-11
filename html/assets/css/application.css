@@ -1,0 +1,85 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS file within this directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the top of the
+* compiled file, but it's generally better to create a new file per style scope.
+*
+*= require bootstrap
+*= require jquery-ui/jquery-ui
+*= require grails
+*= require main
+*= require coreon-theme
+*= require mobile
+*= require bootstrap3-editable/bootstrap-editable.css
+*= require_self
+*/
+
+@import 'coreon-theme.css';
+
+/* countermand the bootstrap default font size as it messes up rem units */
+html.elg-gui-ie {
+  font-size: 100%;
+}
+
+.popover{
+    max-width: 100%; /* Max Width of the popover (depending on the container!) */
+}
+
+#docView {
+    padding-top: 10px;
+}
+
+.featureTable td, .featureTable th {
+    padding: 2px 5px;
+}
+
+.featureTable tr:hover {
+    background: #eee;
+}
+
+.featureTable tr:not(:last-child) {
+    border-bottom: 1px solid #ccc;
+}
+
+div.elg-segment {
+    margin-bottom: 0.5em;
+    padding: 10px;
+    border-color:#c0c0c0;
+    border-width: 1px;
+    border-style: solid;
+}
+
+/* Hide service params by default, unless we need to display them */
+#service-params {
+    display: none;
+}
+
+#param-checkbox-template {
+    display: none;
+}
+
+#service-params tr {
+    min-height: 48px;
+}
+
+#service-params tbody {
+    border-top: 1px solid #c0c0c0;
+}
+
+#service-params td, #service-params th {
+    padding-right: 5px;
+}
+
+/* classes for multi-valued features */
+td.elg-expand-control {
+    width: 1px;
+    white-space: nowrap;
+    vertical-align: top;
+}
+
+a.elg-feature-value-url {
+    white-space: nowrap;
+}
