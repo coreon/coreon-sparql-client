@@ -47,18 +47,18 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                     url: this_.serviceInfo.DatasetRecordUrl,
                     success: function (metadata, textStatus) {
                         if (metadata.described_entity &&
-                            metadata.described_entity.lr_subclass &&
-                            metadata.described_entity.lr_subclass.dataset_distribution &&
-                            metadata.described_entity.lr_subclass.dataset_distribution.length) {
+                          metadata.described_entity.lr_subclass &&
+                          metadata.described_entity.lr_subclass.dataset_distribution &&
+                          metadata.described_entity.lr_subclass.dataset_distribution.length) {
                             var distro = metadata.described_entity.lr_subclass.dataset_distribution[0];
                             this_.endpointUrl = distro.access_location;
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         $('#elg-messages')
-                            .append($('<div class="alert alert-error"></div>')
-                                .text("Failed to fetch resource details"))
-                            .css('display', 'block');
+                          .append($('<div class="alert alert-error"></div>')
+                            .text("Failed to fetch resource details"))
+                          .css('display', 'block');
                     },
                     complete: function () {
                         readyCallback();
@@ -99,19 +99,13 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                 submitProgress.determinate = false;
                 submitProgress.progress = 0;
             }
-            // var targetUrl = this_.endpointUrl;
-            var targetUrl = "https://r00-06.coreon.com/sparql.json";
+            var targetUrl = this_.endpointUrl;
             if(targetUrl) {
                 $.get(this_.withAuthSettings({
                     method: "GET",
                     url: targetUrl,
                     data: {query: query},
                     dataType: "json",
-                    headers: {
-                        "Content-Type": 'application/json',
-                        "Accept": "application/json",
-                        "X-Core-ApiKey": "VhlkabKlafp3XpyQx-QbeC5vN1KOnuby3ujC3CvV8HqpgJ"
-                    },
                     success: function (respData, textStatus) {
                         if (submitProgress) {
                             submitProgress.close();
