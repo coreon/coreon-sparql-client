@@ -17,7 +17,7 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
         }
 
         var elgCommon = new ElgCommon(enableSubmit, enableSubmit,
-            document.getElementById('submitprogress').MDCLinearProgress);
+          document.getElementById('submitprogress').MDCLinearProgress);
 
         $('#test-again').on('click', function(e) {
             e.preventDefault();
@@ -26,8 +26,8 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
 
         function handleResponse(data) {
             if (data.head
-                && data.head.vars
-                && data.head.vars.length > 0) {
+              && data.head.vars
+              && data.head.vars.length > 0) {
                 $('#elg-annotate-result').removeClass('hidden');
 
                 // re-enable the button
@@ -72,8 +72,6 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
         $("#submit-form").on('click', function (e) {
             e.preventDefault();
             var query = $('#query').val();
-
-            console.log('query', query)
             // disable the button until the REST call returns
             $('#submit-form').prop('disabled', true);
             $('#query-results').empty();
