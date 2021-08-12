@@ -1,6 +1,6 @@
-# sparql-gui
+# coreon-sparql-client
 
-sparql-gui is a ui application for making sparql queries to the equivalent Coreon endpoint.
+coreon-sparql-client is a ui application for making sparql queries to the equivalent Coreon endpoint.
 
 It can be loaded inside an iframe, or run as an independent ui app.
 
