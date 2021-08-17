@@ -94,7 +94,10 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
 
 
                     if (samples.length > 0) {
-                        samples.map(function(i, s) {
+                        $(".js-samples").removeClass("hidden");
+                        samples.map(function(s, i) {
+                            var button = $("<button class=\"mdc-button mdc-button--raised next secondary "+s.htmlClass+"\">"+ s.title +"</button>");
+                            $(".js-samples").append(button);
                             $(s.htmlClass).on('click', function (e) {
                                 e.preventDefault();
                                 // disable the button until the REST call returns
