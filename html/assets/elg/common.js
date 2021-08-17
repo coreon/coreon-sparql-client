@@ -43,6 +43,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
         };
 
         ElgCommon.prototype.renderRepoMeta = function (metaFile) {
+            console.log('renderRepoMeta says: starting')
             var this_ = this;
             var samplesDoc = $($.parseHTML(metaFile));
             samplesDoc.find(".coreon-sample-query").each(function(i, elt) {
@@ -54,6 +55,8 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                     'htmlClass': 'js-sample_'+i
                 })
             });
+
+            console.log('renderRepoMeta says: samplesDoc', samplesDoc)
             if (this_.samples.length > 0) {
                 $(".js-samples").removeClass("hidden");
                 this_.samples.each(function(i, elt) {
