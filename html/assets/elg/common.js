@@ -46,13 +46,13 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
 
             console.log('fetchMetaPromise was called')
             debugger
+            var deferred = $.Deferred();
+            var samples = [];
+
             var parser = new DOMParser();
             var newDoc = parser.parseFromString(metaFile, "text/html");
             // var this_ = this;
             var samplesDoc = $(newDoc);
-            var deferred = $.Deferred();
-            var samples = [];
-
             samplesDoc.find(".coreon-sample-query").each(function(i, elt) {
                 var s = $(elt);
                 samples.push({
