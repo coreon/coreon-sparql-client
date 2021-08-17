@@ -56,7 +56,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                 })
             });
 
-            console.log('renderRepoMeta says: samplesDoc', samplesDoc)
+            console.log('renderRepoMeta says: samplesDoc', samplesDoc.find(".coreon-sample-query"))
             if (this_.samples.length > 0) {
                 $(".js-samples").removeClass("hidden");
                 this_.samples.each(function(i, elt) {
