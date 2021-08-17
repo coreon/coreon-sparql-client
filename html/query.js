@@ -87,20 +87,23 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
         console.log('samples: ', elgCommon.samples)
         debugger
 
-        elgCommon.samples.each(function(i, s) {
-            $(s.htmlClass).on('click', function (e) {
-                e.preventDefault();
-                // disable the button until the REST call returns
-                $('#query').focus();
-                $('#query').val(s.query);
-                $('#submit-form').prop('disabled', true);
-                $('#query-results').empty();
-                $('#elg-messages').empty();
+        if (elgCommon.samples.length > 0) {
+            elgCommon.samples.each(function(i, s) {
+                $(s.htmlClass).on('click', function (e) {
+                    e.preventDefault();
+                    // disable the button until the REST call returns
+                    $('#query').focus();
+                    $('#query').val(s.query);
+                    $('#submit-form').prop('disabled', true);
+                    $('#query-results').empty();
+                    $('#elg-messages').empty();
 
-                elgCommon.doQuery(s.query, handleResponse);
-                return false;
-            });
-        })
+                    elgCommon.doQuery(s.query, handleResponse);
+                    return false;
+                });
+            })
+        }
+
     });
 });
 
