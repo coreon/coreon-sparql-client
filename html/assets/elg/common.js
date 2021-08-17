@@ -56,7 +56,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                 })
             });
 
-            console.log('renderRepoMeta says: samplesDoc', samplesDoc.find(".coreon-sample-query"))
+            console.log('renderRepoMeta says: samplesDoc', samplesDoc)
             if (this_.samples.length > 0) {
                 $(".js-samples").removeClass("hidden");
                 this_.samples.each(function(i, elt) {
@@ -81,7 +81,11 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                                 var distro = metadata.described_entity.lr_subclass.dataset_distribution[0];
                                 this_.endpointUrl = distro.access_location;
                                 this_.samplesFile = distro.samples_location[0];
-                                this_.renderRepoMeta(this_.samplesFile);
+                                $.ajax({ url: this_.samplesFile, success: function(data) {
+                                    console.log(data);
+                                    this_.renderRepoMeta(data);
+                                } });
+
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
