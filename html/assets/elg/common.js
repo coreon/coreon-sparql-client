@@ -46,7 +46,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
             console.log('renderRepoMeta says: starting')
             console.log('renderRepoMeta says: metaFile', metaFile)
             var this_ = this;
-            var samplesDoc = $($.parseHTML(metaFile));
+            var samplesDoc = $.parseHTML(metaFile);
             samplesDoc.find(".coreon-sample-query").each(function(i, elt) {
                 var s = $(elt);
                 this_.samples.push({
