@@ -84,6 +84,8 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
         });
 
         console.log('elgCommon: ', elgCommon)
+        console.log('samples: ', elgCommon.samples)
+        debugger
 
         elgCommon.samples.each(function(i, s) {
             $(s.htmlClass).on('click', function (e) {
