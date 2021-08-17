@@ -84,38 +84,38 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
         });
 
 
-        // $.ajax({
-        //     url: elgCommon.samplesFile,
-        //     success: function(data) {
-        //         $.when(elgCommon.renderRepoMeta(data)).then(function(){
-        //             console.log('elgCommon: ', elgCommon)
-        //             console.log('samples: ', elgCommon.samples)
-        //
-        //
-        //
-        //             if (elgCommon.samples.length > 0) {
-        //                 elgCommon.samples.map(function(i, s) {
-        //                     $(s.htmlClass).on('click', function (e) {
-        //                         e.preventDefault();
-        //                         // disable the button until the REST call returns
-        //                         $('#query').focus();
-        //                         $('#query').val(s.query);
-        //                         $('#submit-form').prop('disabled', true);
-        //                         $('#query-results').empty();
-        //                         $('#elg-messages').empty();
-        //
-        //                         elgCommon.doQuery(s.query, handleResponse);
-        //                         return false;
-        //                     });
-        //                 })
-        //             }
-        //         })
-        //     },
-        //     complete: function () {
-        //         console.log('html fetch from query.js complete')
-        //         enableSubmit();
-        //     }
-        // });
+        $.ajax({
+            url: elgCommon.samplesFile,
+            success: function(data) {
+                $.when(elgCommon.fetchMetaPromise(data)).then(function (samples) {
+                    console.log('elgCommon: ', elgCommon)
+                    console.log('samples: ', elgCommon.samples)
+
+
+
+                    if (samples.length > 0) {
+                        samples.map(function(i, s) {
+                            $(s.htmlClass).on('click', function (e) {
+                                e.preventDefault();
+                                // disable the button until the REST call returns
+                                $('#query').focus();
+                                $('#query').val(s.query);
+                                $('#submit-form').prop('disabled', true);
+                                $('#query-results').empty();
+                                $('#elg-messages').empty();
+
+                                elgCommon.doQuery(s.query, handleResponse);
+                                return false;
+                            });
+                        })
+                    }
+                })
+            },
+            complete: function () {
+                console.log('html fetch from query.js complete')
+                enableSubmit();
+            }
+        });
 
     });
 });
