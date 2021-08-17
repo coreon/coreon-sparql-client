@@ -44,7 +44,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
 
         ElgCommon.prototype.renderRepoMeta = function (metaFile) {
             var parser = new DOMParser();
-            var newDoc = parser.parseFromString(htmlString, metaFile);
+            var newDoc = parser.parseFromString(metaFile, "text/html");
             console.log('renderRepoMeta says: starting')
             console.log('renderRepoMeta says: metaFile', metaFile)
             var this_ = this;
