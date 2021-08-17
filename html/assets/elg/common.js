@@ -42,23 +42,28 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
             return obj;
         };
 
-        ElgCommon.prototype.renderRepoMeta = function (metaFile) {
+        ElgCommon.prototype.fetchMetaPromise = function (metaFile) {
             var parser = new DOMParser();
             var newDoc = parser.parseFromString(metaFile, "text/html");
-            var this_ = this;
+            // var this_ = this;
             var samplesDoc = $(newDoc);
+            var samples = [];
             samplesDoc.find(".coreon-sample-query").each(function(i, elt) {
                 var s = $(elt);
-                this_.samples.push({
+                samples.push({
                     title: s.find(".query-title").text().trim(),
                     query: s.find("pre").text().trim(),
                     htmlClass: 'js-sample_'+i
                 })
             });
-            if (this_.samples.length > 0) {
-                console.log('this_.samples which are more than zero ffs', this_.samples)
+            return samples;
+        }
+
+        ElgCommon.prototype.renderRepoMeta = function (samples) {
+            if (samples.length > 0) {
+                console.log('this_.samples which are more than zero ffs', samples)
                 $(".js-samples").removeClass("hidden");
-                this_.samples.map(function(s, i) {
+                samples.map(function(s, i) {
                     var button = $("<button class=\"mdc-button mdc-button--raised next secondary "+s.htmlClass+"\">"+ s.title +"</button>");
                     $(".js-samples").append(button);
                 })
@@ -91,7 +96,9 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                         $.ajax({
                             url: this_.samplesFile,
                             success: function(data) {
-                                this_.renderRepoMeta(data);
+                                $.when(this_.fetchMetaPromise(data)).then(function (res) {
+                                    this_.renderRepoMeta(res)
+                                })
                             },
                             complete: function () {
                                 console.log('html fetch complete')
