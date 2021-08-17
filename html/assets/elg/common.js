@@ -60,8 +60,8 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                 $(".js-samples").removeClass("hidden");
                 this_.samples.map(function(i, elt) {
                     var s = $(elt);
-                    var button = $("<button class=\"mdc-button mdc-button--raised next secondary "+s.htmlClass+"\">s.title</button>");
-                    $(".js-samples-heading").append(button);
+                    var button = $("<button class=\"mdc-button mdc-button--raised next secondary "+s.htmlClass+"\">"+ s.title +"</button>");
+                    $(".js-samples").append(button);
                 })
             }
 
@@ -88,7 +88,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                             .text("Failed to fetch resource details"))
                           .css('display', 'block');
                     },
-                    complete: function (cbk = readyCallback) {
+                    complete: function () {
                         $.ajax({
                             url: this_.samplesFile,
                             success: function(data) {
@@ -96,7 +96,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                             },
                             complete: function () {
                                 console.log('html fetch complete')
-                                cbk();
+                                // cbk();
                             }
                         });
 
