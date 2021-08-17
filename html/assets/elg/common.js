@@ -47,6 +47,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
             var samplesDoc = $($.parseHTML(metaFile));
             samplesDoc.find(".coreon-sample-query").each(function(i, elt) {
                 var s = $(elt);
+                debugger
                 this_.samples.push({
                     'title': s.find(".query-title").text().trim(),
                     'query': s.find("pre").text().trim(),
