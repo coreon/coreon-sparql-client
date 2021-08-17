@@ -87,32 +87,33 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
         $.ajax({
             url: elgCommon.samplesFile,
             success: function(data) {
-                elgCommon.renderRepoMeta(data);
+                $.when(elgCommon.renderRepoMeta(data)).done(function(){
+                    console.log('elgCommon: ', elgCommon)
+                    console.log('samples: ', elgCommon.samples)
+
+
+
+                    if (elgCommon.samples.length > 0) {
+                        elgCommon.samples.map(function(i, s) {
+                            $(s.htmlClass).on('click', function (e) {
+                                e.preventDefault();
+                                // disable the button until the REST call returns
+                                $('#query').focus();
+                                $('#query').val(s.query);
+                                $('#submit-form').prop('disabled', true);
+                                $('#query-results').empty();
+                                $('#elg-messages').empty();
+
+                                elgCommon.doQuery(s.query, handleResponse);
+                                return false;
+                            });
+                        })
+                    }
+                })
             },
             complete: function () {
                 console.log('html fetch from query.js complete')
                 enableSubmit();
-                console.log('elgCommon: ', elgCommon)
-                console.log('samples: ', elgCommon.samples)
-
-
-
-                if (elgCommon.samples.length > 0) {
-                    elgCommon.samples.map(function(i, s) {
-                        $(s.htmlClass).on('click', function (e) {
-                            e.preventDefault();
-                            // disable the button until the REST call returns
-                            $('#query').focus();
-                            $('#query').val(s.query);
-                            $('#submit-form').prop('disabled', true);
-                            $('#query-results').empty();
-                            $('#elg-messages').empty();
-
-                            elgCommon.doQuery(s.query, handleResponse);
-                            return false;
-                        });
-                    })
-                }
             }
         });
 
