@@ -76,54 +76,24 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
             $('#submit-form').prop('disabled', true);
             $('#query-results').empty();
             $('#elg-messages').empty();
-
             elgCommon.doQuery(query, handleResponse);
             return false;
         });
 
-        $(".js-sample_1").on('click', function (e) {
-            e.preventDefault();
-            var query = 'SELECT *\n' +
-              'WHERE {\n' +
-              '    ?t rdf:type coreon:Term .\n' +
-              '    ?t coreon:value ?val .\n' +
-              '}\n' +
-              'LIMIT 10';
+        elgCommon.samples.each(function(i, s) {
+            $(s.htmlClass).on('click', function (e) {
+                e.preventDefault();
+                // disable the button until the REST call returns
+                $('#query').focus();
+                $('#query').val(s.query);
+                $('#submit-form').prop('disabled', true);
+                $('#query-results').empty();
+                $('#elg-messages').empty();
 
-            // disable the button until the REST call returns
-            $('#query').focus();
-            $('#query').val(query);
-            $('#submit-form').prop('disabled', true);
-            $('#query-results').empty();
-            $('#elg-messages').empty();
-
-            elgCommon.doQuery(query, handleResponse);
-            return false;
-        });
-
-        $(".js-sample_2").on('click', function (e) {
-            e.preventDefault();
-            var query = 'SELECT*\n' +
-              'WHERE { \n' +
-              '    ?t rdf:type coreon:Term . \n' +
-              '    ?t coreon:value ?val . \n' +
-              '    FILTER langMatches( lang(?val), "en" )  \n' +
-              '} \n' +
-              'ORDER BY ASC(?val) \n' +
-              'LIMIT 50';
-
-            // disable the button until the REST call returns
-            $('#query').focus();
-            $('#query').val(query);
-            $('#submit-form').prop('disabled', true);
-            $('#query-results').empty();
-            $('#elg-messages').empty();
-
-            elgCommon.doQuery(query, handleResponse);
-            return false;
-        });
-
-
+                elgCommon.doQuery(s.query, handleResponse);
+                return false;
+            });
+        })
     });
 });
 

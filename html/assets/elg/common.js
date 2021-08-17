@@ -7,6 +7,8 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
             this.fetchedDataset = false;
             this.serviceInfo = {DatasetRecordUrl: null, Authorization: null};
             this.endpointUrl = null;
+            this.samplesFile = null;
+            this.samples = [];
             this.afterErrorCallback = afterErrorCallback;
             this.submitProgress = submitProgress;
 
@@ -40,6 +42,28 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
             return obj;
         };
 
+        ElgCommon.prototype.renderRepoMeta = function (metaFile) {
+            var this_ = this;
+            var samplesDoc = $($.parseHTML(metaFile));
+            samplesDoc.find(".coreon-sample-query").each(function(i, elt) {
+                var s = $(elt);
+                this_.push({
+                    'title': s.find(".query-title").text().trim(),
+                    'query': s.find("pre").text().trim(),
+                    'htmlClass': 'js-sample_'+i
+                })
+            });
+            if (this_.length > 0) {
+                $(".js-samples").removeClass("hidden");
+                this_.each(function(i, elt) {
+                    var s = $(elt);
+                    var button = $("<button class=\"mdc-button mdc-button--raised next secondary "+s.htmlClass+"\">s.title</button>");
+                    $(".js-samples-heading").append(button);
+                })
+            }
+
+        }
+
         ElgCommon.prototype.fetchDataset = function (readyCallback) {
             var this_ = this;
             if (this_.serviceInfo.DatasetRecordUrl) {
@@ -47,11 +71,13 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                     url: this_.serviceInfo.DatasetRecordUrl,
                     success: function (metadata, textStatus) {
                         if (metadata.described_entity &&
-                          metadata.described_entity.lr_subclass &&
-                          metadata.described_entity.lr_subclass.dataset_distribution &&
-                          metadata.described_entity.lr_subclass.dataset_distribution.length) {
-                            var distro = metadata.described_entity.lr_subclass.dataset_distribution[0];
-                            this_.endpointUrl = distro.access_location;
+                            metadata.described_entity.lr_subclass &&
+                            metadata.described_entity.lr_subclass.dataset_distribution &&
+                            metadata.described_entity.lr_subclass.dataset_distribution.length) {
+                                var distro = metadata.described_entity.lr_subclass.dataset_distribution[0];
+                                this_.endpointUrl = distro.access_location;
+                                this_.samplesFile = distro.samples_location[0];
+                                this_.renderRepoMeta(this_.samplesFile);
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
