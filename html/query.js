@@ -24,6 +24,9 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
             $('#elg-annotate-result').addClass('hidden');
         });
 
+
+
+
         function handleResponse(data) {
             if (data.head
               && data.head.vars
@@ -82,20 +85,20 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
 
         console.log('elgCommon: ', elgCommon)
 
-        // elgCommon.samples.each(function(i, s) {
-        //     $(s.htmlClass).on('click', function (e) {
-        //         e.preventDefault();
-        //         // disable the button until the REST call returns
-        //         $('#query').focus();
-        //         $('#query').val(s.query);
-        //         $('#submit-form').prop('disabled', true);
-        //         $('#query-results').empty();
-        //         $('#elg-messages').empty();
-        //
-        //         elgCommon.doQuery(s.query, handleResponse);
-        //         return false;
-        //     });
-        // })
+        elgCommon.samples.each(function(i, s) {
+            $(s.htmlClass).on('click', function (e) {
+                e.preventDefault();
+                // disable the button until the REST call returns
+                $('#query').focus();
+                $('#query').val(s.query);
+                $('#submit-form').prop('disabled', true);
+                $('#query-results').empty();
+                $('#elg-messages').empty();
+
+                elgCommon.doQuery(s.query, handleResponse);
+                return false;
+            });
+        })
     });
 });
 
