@@ -87,7 +87,6 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
         $.ajax({
             url: elgCommon.samplesFile,
             success: function(data) {
-                console.log(data)
                 $.when(elgCommon.fetchMetaPromise(data)).then(function (samples) {
 
                     console.log('elgCommon: ', elgCommon)

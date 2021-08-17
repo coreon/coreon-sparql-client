@@ -51,15 +51,19 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
             // var this_ = this;
             var samplesDoc = $(newDoc);
             var samples = [];
-            samplesDoc.find(".coreon-sample-query").each(function(i, elt) {
+
+            $.when(samplesDoc.find(".coreon-sample-query").each(function(i, elt) {
                 var s = $(elt);
                 samples.push({
                     title: s.find(".query-title").text().trim(),
                     query: s.find("pre").text().trim(),
                     htmlClass: 'js-sample_'+i
                 })
+                return samples;
+            })).then(function(samples) {
+                return samples;
             });
-            return samples;
+
         }
 
         // ElgCommon.prototype.renderRepoMeta = function (samples) {
