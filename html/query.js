@@ -91,6 +91,7 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
             },
             complete: function (data) {
 
+                debugger
                 elgCommon.fetchMetaPromise(data).then(function (samples) {
                     var deferred = $.Deferred();
                     deferred.resolve();
