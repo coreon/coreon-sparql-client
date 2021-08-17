@@ -48,7 +48,6 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
             var samplesDoc = $($.parseHTML(metaFile));
             samplesDoc.find(".coreon-sample-query").each(function(i, elt) {
                 var s = $(elt);
-                debugger
                 this_.samples.push({
                     'title': s.find(".query-title").text().trim(),
                     'query': s.find("pre").text().trim(),
@@ -57,6 +56,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
             });
 
             console.log('renderRepoMeta says: samplesDoc', samplesDoc)
+            console.log('renderRepoMeta says: queries', samplesDoc.find(".coreon-sample-query"))
             if (this_.samples.length > 0) {
                 $(".js-samples").removeClass("hidden");
                 this_.samples.each(function(i, elt) {
