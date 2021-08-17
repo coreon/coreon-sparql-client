@@ -44,6 +44,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
 
         ElgCommon.prototype.renderRepoMeta = function (metaFile) {
             console.log('renderRepoMeta says: starting')
+            console.log('renderRepoMeta says: metaFile', metaFile)
             var this_ = this;
             var samplesDoc = $($.parseHTML(metaFile));
             samplesDoc.find(".coreon-sample-query").each(function(i, elt) {
@@ -57,6 +58,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
 
             console.log('renderRepoMeta says: samplesDoc', samplesDoc)
             console.log('renderRepoMeta says: queries', samplesDoc.find(".coreon-sample-query"))
+            console.log('renderRepoMeta says: queries', metaFile.find(".coreon-sample-query"))
             if (this_.samples.length > 0) {
                 $(".js-samples").removeClass("hidden");
                 this_.samples.each(function(i, elt) {
