@@ -87,6 +87,10 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
         $.ajax({
             url: elgCommon.samplesFile,
             success: function(data) {
+                console.log('success')
+            },
+            complete: function (data) {
+
                 elgCommon.fetchMetaPromise(data).then(function (samples) {
                     var deferred = $.Deferred();
                     deferred.resolve();
@@ -118,9 +122,6 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
                 }).done(
                   console.log('html fetch from query.js complete')
                 );
-            },
-            complete: function (data) {
-
                 enableSubmit();
             }
         });
