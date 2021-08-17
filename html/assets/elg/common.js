@@ -87,17 +87,20 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                             .text("Failed to fetch resource details"))
                           .css('display', 'block');
                     },
-                    complete: function () {
+                    complete: function (cbk = readyCallback) {
                         $.ajax({
                             url: this_.samplesFile,
                             success: function(data) {
                                 this_.renderRepoMeta(data);
                             },
                             complete: function () {
-                                readyCallback();
+                                console.log('html fetch complete')
+                                cbk();
                             }
                         });
-                        // readyCallback();
+
+                        console.log('data fetch complete')
+                        readyCallback();
                     }
                 }));
             } else {
