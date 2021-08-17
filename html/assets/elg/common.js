@@ -50,9 +50,9 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
             samplesDoc.find(".coreon-sample-query").each(function(i, elt) {
                 var s = $(elt);
                 this_.samples.push({
-                    'title': s.find(".query-title").text().trim(),
-                    'query': s.find("pre").text().trim(),
-                    'htmlClass': 'js-sample_'+i
+                    title: s.find(".query-title").text().trim(),
+                    query: s.find("pre").text().trim(),
+                    htmlClass: 'js-sample_'+i
                 })
             });
             if (this_.samples.length > 0) {
