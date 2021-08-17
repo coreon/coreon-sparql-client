@@ -58,7 +58,9 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
             if (this_.samples.length > 0) {
                 console.log('this_.samples which are more than zero ffs', this_.samples)
                 $(".js-samples").removeClass("hidden");
-                this_.samples.map(function(i, s) {
+                this_.samples.map(function(s, i) {
+
+                    console.log()
                     var button = $("<button class=\"mdc-button mdc-button--raised next secondary "+s.htmlClass+"\">"+ s.title +"</button>");
                     $(".js-samples").append(button);
                 })
