@@ -89,7 +89,7 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
             success: function(data) {
                 $.when(elgCommon.fetchMetaPromise(data)).then(function (samples) {
                     console.log('elgCommon: ', elgCommon)
-                    console.log('samples: ', elgCommon.samples)
+                    console.log('samples: ', samples)
 
 
 
