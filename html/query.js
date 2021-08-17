@@ -83,26 +83,38 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
             return false;
         });
 
-        console.log('elgCommon: ', elgCommon)
-        console.log('samples: ', elgCommon.samples)
-        debugger
 
-        if (elgCommon.samples.length > 0) {
-            elgCommon.samples.map(function(i, s) {
-                $(s.htmlClass).on('click', function (e) {
-                    e.preventDefault();
-                    // disable the button until the REST call returns
-                    $('#query').focus();
-                    $('#query').val(s.query);
-                    $('#submit-form').prop('disabled', true);
-                    $('#query-results').empty();
-                    $('#elg-messages').empty();
+        $.ajax({
+            url: elgCommon.samplesFile,
+            success: function(data) {
+                elgCommon.renderRepoMeta(data);
+            },
+            complete: function () {
+                console.log('html fetch from query.js complete')
+                enableSubmit();
+                console.log('elgCommon: ', elgCommon)
+                console.log('samples: ', elgCommon.samples)
 
-                    elgCommon.doQuery(s.query, handleResponse);
-                    return false;
-                });
-            })
-        }
+
+
+                if (elgCommon.samples.length > 0) {
+                    elgCommon.samples.map(function(i, s) {
+                        $(s.htmlClass).on('click', function (e) {
+                            e.preventDefault();
+                            // disable the button until the REST call returns
+                            $('#query').focus();
+                            $('#query').val(s.query);
+                            $('#submit-form').prop('disabled', true);
+                            $('#query-results').empty();
+                            $('#elg-messages').empty();
+
+                            elgCommon.doQuery(s.query, handleResponse);
+                            return false;
+                        });
+                    })
+                }
+            }
+        });
 
     });
 });
