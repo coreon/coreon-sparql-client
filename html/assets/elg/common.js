@@ -43,6 +43,9 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
         };
 
         ElgCommon.prototype.fetchMetaPromise = function (metaFile) {
+
+            console.log('metafile', metafile)
+
             var parser = new DOMParser();
             var newDoc = parser.parseFromString(metaFile, "text/html");
             // var this_ = this;

@@ -88,10 +88,9 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
             url: elgCommon.samplesFile,
             success: function(data) {
                 $.when(elgCommon.fetchMetaPromise(data)).then(function (samples) {
+
                     console.log('elgCommon: ', elgCommon)
                     console.log('samples: ', samples)
-
-
 
                     if (samples.length > 0) {
                         $(".js-samples").removeClass("hidden");
