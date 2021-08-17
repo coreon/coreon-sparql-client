@@ -88,7 +88,7 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
         debugger
 
         if (elgCommon.samples.length > 0) {
-            elgCommon.samples.each(function(i, s) {
+            elgCommon.samples.map(function(i, s) {
                 $(s.htmlClass).on('click', function (e) {
                     e.preventDefault();
                     // disable the button until the REST call returns
