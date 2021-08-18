@@ -18,6 +18,8 @@ body {
     background-color: #FFF;
     color: #717a53;
     margin-bottom: 12px;
+    clear: both;
+    float: left;
 }
 
 
