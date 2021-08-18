@@ -41,8 +41,9 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
             return obj;
         };
 
-        ElgCommon.prototype.fetchMetaPromise = function (metaFile) {
+        ElgCommon.prototype.fetchRepoMeta = function (metaFile) {
             var samples = [];
+            var description = null;
             var parser = new DOMParser();
             var newDoc = parser.parseFromString(metaFile, "text/html");
             var samplesDoc = $(newDoc);
@@ -54,11 +55,23 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                     htmlClass: 'js-sample_'+i
                 })
             });
-            return samples;
+            var descriptionNode = samplesDoc.find(".coreon-repo-description");
+            description = $(descriptionNode).text();
+
+            var meta = {
+                samples: samples,
+                description: description
+            }
+            return meta;
         }
 
-        ElgCommon.prototype.renderRepoMeta = function (samples, qResponse) {
+        ElgCommon.prototype.renderRepoMeta = function (meta, qResponse) {
             var this_ = this;
+            var samples = meta.samples;
+            var description = meta.description;
+
+            console.log('HELLOO description!!!!', description);
+
             if (samples.length > 0) {
                 console.log('this_.samples which are more than zero ffs', samples)
                 $(".js-samples").removeClass("hidden");
@@ -107,8 +120,8 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                             $.ajax({
                                 url: this_.samplesFile,
                                 success: function(data) {
-                                    var samples = this_.fetchMetaPromise(data);
-                                    this_.renderRepoMeta(samples, qResponse);
+                                    var meta = this_.fetchRepoMeta(data);
+                                    this_.renderRepoMeta(meta, qResponse);
                                 },
                                 error: function (jqXHR, textStatus, errorThrown) {
                                     console.log('Failed to fetch repository meta file');
