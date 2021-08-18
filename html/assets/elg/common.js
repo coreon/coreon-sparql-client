@@ -65,7 +65,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
         }
 
         ElgCommon.prototype.renderRepoMeta = function (samples, qResponse) {
-
+            console.log('renderRepoMeta says qResponse: ', qResponse)
             var this_ = this;
             if (samples.length > 0) {
                 console.log('this_.samples which are more than zero ffs', samples)
@@ -91,6 +91,8 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
         }
 
         ElgCommon.prototype.fetchDataset = function (readyCallback, qResponse) {
+
+            console.log('fetchDataset says qResponse: ', qResponse)
             var this_ = this;
             if (this_.serviceInfo.DatasetRecordUrl) {
                 $.get(this_.withAuthSettings({
@@ -113,9 +115,13 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                           .css('display', 'block');
                     },
                     complete: function () {
+
+                        console.log('fetchDataset@complete says qResponse: ', qResponse)
                         $.ajax({
                             url: this_.samplesFile,
                             success: function(data) {
+
+                                console.log('fetchDataset@ajax says qResponse: ', qResponse)
                                 $.when(this_.fetchMetaPromise(data)).then(function (res) {
                                     this_.renderRepoMeta(res, qResponse)
                                 })
