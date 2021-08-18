@@ -156,7 +156,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
 
 
         ElgCommon.prototype.doQuery = function (query, responseHandler) {
-            debugger
+            // debugger
             var errorHandler = this.ajaxErrorHandler();
             var submitProgress = this.submitProgress;
             var this_ = this;

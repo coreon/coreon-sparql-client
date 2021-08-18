@@ -61,14 +61,6 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
         //     });
         // }
 
-        var elgCommon = new ElgCommon(enableSubmit, enableSubmit, handleResponse,
-          document.getElementById('submitprogress').MDCLinearProgress);
-
-        $('#test-again').on('click', function(e) {
-            e.preventDefault();
-            $('#elg-annotate-result').addClass('hidden');
-        });
-
         function handleResponse(data) {
             if (data.head
               && data.head.vars
@@ -113,6 +105,15 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
                 msgsContainer.append($('<div class="alert alert-warning">Malformed SPARQL results</div>'));
             }
         }
+
+        var elgCommon = new ElgCommon(enableSubmit, enableSubmit, handleResponse,
+          document.getElementById('submitprogress').MDCLinearProgress);
+
+        $('#test-again').on('click', function(e) {
+            e.preventDefault();
+            $('#elg-annotate-result').addClass('hidden');
+        });
+
 
         $("#submit-form").on('click', function (e) {
             e.preventDefault();
