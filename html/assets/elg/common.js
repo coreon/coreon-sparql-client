@@ -8,7 +8,6 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
             this.serviceInfo = {DatasetRecordUrl: null, Authorization: null};
             this.endpointUrl = null;
             this.samplesFile = null;
-            this.samples = [];
             this.afterErrorCallback = afterErrorCallback;
             this.submitProgress = submitProgress;
 
@@ -43,12 +42,9 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
         };
 
         ElgCommon.prototype.fetchMetaPromise = function (metaFile) {
-            // var deferred = $.Deferred();
             var samples = [];
-
             var parser = new DOMParser();
             var newDoc = parser.parseFromString(metaFile, "text/html");
-            // var this_ = this;
             var samplesDoc = $(newDoc);
             samplesDoc.find(".coreon-sample-query").each(function(i, elt) {
                 var s = $(elt);
@@ -57,14 +53,11 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                     query: s.find("pre").text().trim(),
                     htmlClass: 'js-sample_'+i
                 })
-            })
-            // deferred.resolve(samples);
-            // return deferred.promise();
+            });
             return samples;
         }
 
         ElgCommon.prototype.renderRepoMeta = function (samples, qResponse) {
-            console.log('renderRepoMeta says qResponse: ', qResponse)
             var this_ = this;
             if (samples.length > 0) {
                 console.log('this_.samples which are more than zero ffs', samples)
@@ -80,7 +73,6 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                     $('#submit-form').prop('disabled', true);
                     $('#query-results').empty();
                     $('#elg-messages').empty();
-                    // debugger
                     this_.doQuery(s.query, qResponse);
                     return false;
                 });
@@ -90,8 +82,6 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
         }
 
         ElgCommon.prototype.fetchDataset = function (readyCallback, qResponse) {
-
-            console.log('fetchDataset says qResponse: ', qResponse)
             var this_ = this;
             if (this_.serviceInfo.DatasetRecordUrl) {
                 $.get(this_.withAuthSettings({
@@ -104,7 +94,6 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                                 var distro = metadata.described_entity.lr_subclass.dataset_distribution[0];
                                 this_.endpointUrl = distro.access_location;
                                 this_.samplesFile = distro.samples_location[0];
-                                // this_.samplesFile = "http://localhost:8081/samples.html";
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -114,29 +103,22 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                           .css('display', 'block');
                     },
                     complete: function () {
+                        if (this_.samplesFile) {
+                            $.ajax({
+                                url: this_.samplesFile,
+                                success: function(data) {
+                                    var samples = this_.fetchMetaPromise(data);
+                                    this_.renderRepoMeta(samples, qResponse);
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    console.log('Failed to fetch repository meta file');
+                                },
+                                complete: function () {
+                                    readyCallback();
+                                }
+                            });
+                        }
 
-                        console.log('fetchDataset@complete says qResponse: ', qResponse)
-                        $.ajax({
-                            url: this_.samplesFile,
-                            success: function(data) {
-
-                                console.log('fetchDataset@ajax says qResponse: ', qResponse)
-                                var samples = this_.fetchMetaPromise(data);
-                                this_.renderRepoMeta(samples, qResponse);
-
-
-                                // $.when(this_.fetchMetaPromise(data)).then(function (res) {
-                                //     this_.renderRepoMeta(res, qResponse)
-                                // })
-                                // this_.renderRepoMeta(data)
-                            },
-                            complete: function () {
-                                console.log('html fetch complete')
-                                readyCallback();
-                            }
-                        });
-
-                        console.log('data fetch complete')
                         readyCallback();
                     }
                 }));
@@ -165,7 +147,6 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
 
 
         ElgCommon.prototype.doQuery = function (query, responseHandler) {
-            // debugger
             var errorHandler = this.ajaxErrorHandler();
             var submitProgress = this.submitProgress;
             var this_ = this;
