@@ -1,7 +1,7 @@
 define("elg/common", ["jquery", "mdc"], function ($, mdc) {
 
     return (function () {
-        function ElgCommon(readyCallback, afterErrorCallback, submitProgress) {
+        function ElgCommon(readyCallback, metaCallback, afterErrorCallback, submitProgress) {
             var this_ = this;
             this.injectedCss = false;
             this.fetchedDataset = false;
@@ -24,7 +24,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                         this_.injectedCss = true;
                     }
                     if (!this_.fetchedDataset) {
-                        this_.fetchDataset(readyCallback);
+                        this_.fetchDataset(readyCallback, metaCallback);
                     }
                 }
             });
@@ -77,7 +77,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
         //
         // }
 
-        ElgCommon.prototype.fetchDataset = function (readyCallback) {
+        ElgCommon.prototype.fetchDataset = function (readyCallback, metaCallback) {
             var this_ = this;
             if (this_.serviceInfo.DatasetRecordUrl) {
                 $.get(this_.withAuthSettings({
@@ -114,6 +114,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                         // });
 
                         console.log('data fetch complete')
+                        metaCallback();
                         readyCallback();
                     }
                 }));
