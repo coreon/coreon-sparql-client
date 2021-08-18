@@ -61,6 +61,14 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
             }
         }
 
+        function limitQuery(query) {
+            return "SELECT *\n" +
+              "WHERE {" +
+              query +
+              "}\n" +
+              "LIMIT 100"
+        }
+
         var elgCommon = new ElgCommon(enableSubmit, enableSubmit, handleResponse,
           document.getElementById('submitprogress').MDCLinearProgress);
 
@@ -72,7 +80,7 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
 
         $("#submit-form").on('click', function (e) {
             e.preventDefault();
-            var query = $('#query').val();
+            var query = limitQuery($('#query').val());
             // disable the button until the REST call returns
             $('#submit-form').prop('disabled', true);
             $('#query-results').empty();

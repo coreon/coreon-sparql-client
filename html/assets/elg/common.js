@@ -96,7 +96,12 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                     $('#submit-form').prop('disabled', true);
                     $('#query-results').empty();
                     $('#elg-messages').empty();
-                    this_.doQuery(s.query, qResponse);
+                    var query = "SELECT *\n" +
+                      "WHERE {" +
+                      s.query +
+                      "}\n" +
+                      "LIMIT 100"
+                    this_.doQuery(query, qResponse);
                     return false;
                 });
                 })
