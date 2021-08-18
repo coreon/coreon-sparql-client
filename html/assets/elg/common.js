@@ -90,6 +90,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                                 var distro = metadata.described_entity.lr_subclass.dataset_distribution[0];
                                 this_.endpointUrl = distro.access_location;
                                 this_.samplesFile = distro.samples_location[0];
+                                // this_.samplesFile = "http://localhost:8081/samples.html";
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
