@@ -1,7 +1,7 @@
 define("elg/common", ["jquery", "mdc"], function ($, mdc) {
 
     return (function () {
-        function ElgCommon(readyCallback, metaCallback, afterErrorCallback, submitProgress) {
+        function ElgCommon(readyCallback, afterErrorCallback, qResponse, submitProgress) {
             var this_ = this;
             this.injectedCss = false;
             this.fetchedDataset = false;
@@ -24,7 +24,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                         this_.injectedCss = true;
                     }
                     if (!this_.fetchedDataset) {
-                        this_.fetchDataset(readyCallback, metaCallback);
+                        this_.fetchDataset(readyCallback);
                     }
                 }
             });
@@ -65,19 +65,32 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
             return deferred.promise();
         }
 
-        // ElgCommon.prototype.renderRepoMeta = function (samples) {
-        //     if (samples.length > 0) {
-        //         console.log('this_.samples which are more than zero ffs', samples)
-        //         $(".js-samples").removeClass("hidden");
-        //         samples.map(function(s, i) {
-        //             var button = $("<button class=\"mdc-button mdc-button--raised next secondary "+s.htmlClass+"\">"+ s.title +"</button>");
-        //             $(".js-samples").append(button);
-        //         })
-        //     }
-        //
-        // }
+        ElgCommon.prototype.renderRepoMeta = function (samples, qResponse) {
+            var this_ = this;
+            if (samples.length > 0) {
+                console.log('this_.samples which are more than zero ffs', samples)
+                $(".js-samples").removeClass("hidden");
+                samples.map(function(s, i) {
+                    var button = $("<button class=\"mdc-button mdc-button--raised next secondary "+s.htmlClass+"\">"+ s.title +"</button>");
+                    $(".js-samples").append(button);
+                    $(s.htmlClass).on('click', function (e) {
+                    e.preventDefault();
+                    // disable the button until the REST call returns
+                    $('#query').focus();
+                    $('#query').val(s.query);
+                    $('#submit-form').prop('disabled', true);
+                    $('#query-results').empty();
+                    $('#elg-messages').empty();
 
-        ElgCommon.prototype.fetchDataset = function (readyCallback, metaCallback) {
+                    this_.doQuery(s.query, qResponse);
+                    return false;
+                });
+                })
+            }
+
+        }
+
+        ElgCommon.prototype.fetchDataset = function (readyCallback, qResponse) {
             var this_ = this;
             if (this_.serviceInfo.DatasetRecordUrl) {
                 $.get(this_.withAuthSettings({
@@ -100,21 +113,21 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                           .css('display', 'block');
                     },
                     complete: function () {
-                        // $.ajax({
-                        //     url: this_.samplesFile,
-                        //     success: function(data) {
-                        //         $.when(this_.fetchMetaPromise(data)).then(function (res) {
-                        //             this_.renderRepoMeta(res)
-                        //         })
-                        //     },
-                        //     complete: function () {
-                        //         console.log('html fetch complete')
-                        //         readyCallback();
-                        //     }
-                        // });
+                        $.ajax({
+                            url: this_.samplesFile,
+                            success: function(data) {
+                                $.when(this_.fetchMetaPromise(data)).then(function (res) {
+                                    this_.renderRepoMeta(res, qResponse)
+                                })
+                                // this_.renderRepoMeta(data)
+                            },
+                            complete: function () {
+                                console.log('html fetch complete')
+                                readyCallback();
+                            }
+                        });
 
                         console.log('data fetch complete')
-                        metaCallback();
                         readyCallback();
                     }
                 }));
