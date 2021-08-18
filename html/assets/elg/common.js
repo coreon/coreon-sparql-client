@@ -45,7 +45,6 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
         ElgCommon.prototype.fetchMetaPromise = function (metaFile) {
 
             console.log('fetchMetaPromise was called')
-            debugger
             var deferred = $.Deferred();
             var samples = [];
 
@@ -66,6 +65,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
         }
 
         ElgCommon.prototype.renderRepoMeta = function (samples, qResponse) {
+
             var this_ = this;
             if (samples.length > 0) {
                 console.log('this_.samples which are more than zero ffs', samples)
@@ -73,7 +73,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                 samples.map(function(s, i) {
                     var button = $("<button class=\"mdc-button mdc-button--raised next secondary "+s.htmlClass+"\">"+ s.title +"</button>");
                     $(".js-samples").append(button);
-                    $(s.htmlClass).on('click', function (e) {
+                    $("."+ s.htmlClass).on('click', function (e) {
                     e.preventDefault();
                     // disable the button until the REST call returns
                     $('#query').focus();
@@ -81,7 +81,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                     $('#submit-form').prop('disabled', true);
                     $('#query-results').empty();
                     $('#elg-messages').empty();
-
+                    // debugger
                     this_.doQuery(s.query, qResponse);
                     return false;
                 });
