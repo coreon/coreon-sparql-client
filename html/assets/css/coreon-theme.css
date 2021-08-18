@@ -66,3 +66,11 @@ tr td {
 .col-t {
     padding-right: 64px;
 }
+
+.repo-name {
+    background-color: rgba(61,162,230,0.2);
+    font-size: 1.2rem;
+    line-height: 1.5em;
+    color: #3f3b2c;
+    margin: 8px 0;
+}
