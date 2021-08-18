@@ -24,7 +24,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                         this_.injectedCss = true;
                     }
                     if (!this_.fetchedDataset) {
-                        this_.fetchDataset(readyCallback);
+                        this_.fetchDataset(readyCallback, qResponse);
                     }
                 }
             });
