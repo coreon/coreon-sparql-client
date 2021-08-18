@@ -43,6 +43,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
 
         ElgCommon.prototype.fetchRepoMeta = function (metaFile) {
             var samples = [];
+            var name = null;
             var description = null;
             var parser = new DOMParser();
             var newDoc = parser.parseFromString(metaFile, "text/html");
@@ -55,12 +56,15 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                     htmlClass: 'js-sample_'+i
                 })
             });
+            var nameNode = samplesDoc.find(".coreon-repo-name");
             var descriptionNode = samplesDoc.find(".coreon-repo-description");
+            name = $(nameNode).text();
             description = $(descriptionNode).text();
 
             var meta = {
-                samples: samples,
-                description: description
+                name: name,
+                description: description,
+                samples: samples
             }
             return meta;
         }
@@ -68,12 +72,18 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
         ElgCommon.prototype.renderRepoMeta = function (meta, qResponse) {
             var this_ = this;
             var samples = meta.samples;
+            var name = meta.name;
             var description = meta.description;
 
-            console.log('HELLOO description!!!!', description);
+            if (name) {
+                $('.js-repo-name').text(name);
+            }
+
+            if (description) {
+                $('.js-repo-description').text(description);
+            }
 
             if (samples.length > 0) {
-                console.log('this_.samples which are more than zero ffs', samples)
                 $(".js-samples").removeClass("hidden");
                 samples.map(function(s, i) {
                     var button = $("<button class=\"mdc-button mdc-button--raised next secondary "+s.htmlClass+"\">"+ s.title +"</button>");
