@@ -33,6 +33,21 @@ The application can then be accessed at localhost:8080
 
 The UI consists of a form that contains a textarea input. Use this input to build custom queries and submit in order to receive a response from the Coreon sparql endpoint. The response will be rendered as an html table, below the query.
 
+### Parsing and rendering metadata
+
+In the case where the client app is hosted within an iframe, the parent application may expose an HTML file, named "samples.html", containing metadata related to the source that is being queried. In the case of Coreon, this source is a repository.
+
+The client app can fetch and display the repository's name, description and sample queries.
+
+It is required that within the provided HTML file, the relevant strings, be wrapped by elements with corresponding classes, as follows.
+
+- Repository name: "coreon-repo-name"
+- Repository description: "coreon-repo-description"
+- Repository query: "coreon-sample-query"
+
+There can be multiple sample queries
+
+
 ## License
 MIT License
 
