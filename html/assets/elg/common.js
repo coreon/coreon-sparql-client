@@ -43,9 +43,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
         };
 
         ElgCommon.prototype.fetchMetaPromise = function (metaFile) {
-
-            console.log('fetchMetaPromise was called')
-            var deferred = $.Deferred();
+            // var deferred = $.Deferred();
             var samples = [];
 
             var parser = new DOMParser();
@@ -60,8 +58,9 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                     htmlClass: 'js-sample_'+i
                 })
             })
-            deferred.resolve(samples);
-            return deferred.promise();
+            // deferred.resolve(samples);
+            // return deferred.promise();
+            return samples;
         }
 
         ElgCommon.prototype.renderRepoMeta = function (samples, qResponse) {
@@ -122,9 +121,13 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                             success: function(data) {
 
                                 console.log('fetchDataset@ajax says qResponse: ', qResponse)
-                                $.when(this_.fetchMetaPromise(data)).then(function (res) {
-                                    this_.renderRepoMeta(res, qResponse)
-                                })
+                                var samples = this_.fetchMetaPromise(data);
+                                this_.renderRepoMeta(samples, qResponse);
+
+
+                                // $.when(this_.fetchMetaPromise(data)).then(function (res) {
+                                //     this_.renderRepoMeta(res, qResponse)
+                                // })
                                 // this_.renderRepoMeta(data)
                             },
                             complete: function () {
