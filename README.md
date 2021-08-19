@@ -35,7 +35,7 @@ The UI consists of a form that contains a textarea input. Use this input to buil
 
 ### Parsing and rendering metadata
 
-In the case where the client app is hosted within an iframe, the parent application may expose an HTML file, named "samples.html", containing metadata related to the source that is being queried. In the case of Coreon, this source is a repository.
+In the case where the client app is hosted within an iframe, the parent application may expose the url to one or multiple HTML files, containing metadata related to the source that is being queried. In the case of Coreon, this source is a repository. In the case of multiple repositories that can be accessed, there must be one HTML file for each corresponding repository. These HTML files must be placed under a directory with the name "samples", which, itself is placed within the "html" directory of the client application.
 
 The client app can fetch and display the repository's name, description and sample queries.
 
@@ -45,7 +45,7 @@ It is required that within the provided HTML file, the relevant strings, be wrap
 - Repository description: "coreon-repo-description"
 - Repository query: "coreon-sample-query"
 
-There can be multiple sample queries
+There can be multiple sample queries, for each repository.
 
 
 ## License
