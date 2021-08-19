@@ -77,6 +77,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
 
             if (name) {
                 $('.js-repo-name').text(name);
+                $('.js-repo-name').addClass('repo-name');
             }
 
             if (description) {
