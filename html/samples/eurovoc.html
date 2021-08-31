@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sample queries for repository Eurovoc</title>
+</head>
+<body>
+<h1 class="coreon-repo-name">Eurovoc</h1>
+<p class="coreon-repo-description">Eurovoc is the European Union’s multilingual thesaurus. It has been converted from SKOS/rdf. This data set is highly multilingual, covering 20+ languages.
+  The data is characterised by a very structured, levelled approach. Upper levels contain classificatory numbers (/ 36 science / 3611 humanities …). Through Coreon’s multilingual concept map approach, the data is explorable in any of the available languages. For instance, switch to Spanish as source language and see immediately how the concept map is rendered in Spanish.</p>
+<h1>Sample queries</h1>
+<div class="coreon-sample-query">
+  <h2 class="query-title">Fetch the first 10 terms</h2>
+  <pre>
+    SELECT * WHERE {
+        ?t a coreon:Term .
+        ?t coreon:value ?val .
+    } LIMIT 10
+  </pre>
+</div>
+
+<div class="coreon-sample-query">
+  <h2 class="query-title">First 50 English terms, sorted from A to Z</h2>
+  <pre>
+    SELECT * WHERE {
+        ?t rdf:type coreon:Term .
+        ?t coreon:value ?val .
+        FILTER langMatches( lang(?val), "en" )
+    }
+    ORDER BY ASC(?val)
+    LIMIT 50
+  </pre>
+</div>
+
+</body>
+</html>
