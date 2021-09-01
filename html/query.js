@@ -57,7 +57,7 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
                 $('#query-results').append(tbl);
                 $("html, body").animate({
                     scrollTop: $("#query-results").offset().top
-                }, 1000);
+                }, 600);
             } else {
                 var msgsContainer = $('#elg-messages');
                 msgsContainer.append($('<div class="alert alert-warning">Malformed SPARQL results</div>'));
