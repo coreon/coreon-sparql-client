@@ -56,7 +56,7 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
 
                 $('#query-results').append(tbl);
                 $("html, body").animate({
-                    scrollTop: $("#image").offset().top
+                    scrollTop: $("#query-results").offset().top
                 }, 1000);
             } else {
                 var msgsContainer = $('#elg-messages');
