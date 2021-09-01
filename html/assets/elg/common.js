@@ -132,6 +132,7 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                           .css('display', 'block');
                     },
                     complete: function () {
+                        console.log('samplesFile, ', this_.samplesFile)
                         if (this_.samplesFile) {
                             $.ajax({
                                 url: this_.samplesFile,
