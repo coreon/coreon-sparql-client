@@ -55,6 +55,9 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
                 }
 
                 $('#query-results').append(tbl);
+                $("html, body").animate({
+                    scrollTop: $("#image").offset().top
+                }, 1000);
             } else {
                 var msgsContainer = $('#elg-messages');
                 msgsContainer.append($('<div class="alert alert-warning">Malformed SPARQL results</div>'));
@@ -76,7 +79,6 @@ require(["jquery", "mdc", "elg/common"], function ($, mdc, ElgCommon) {
             e.preventDefault();
             $('#elg-annotate-result').addClass('hidden');
         });
-
 
         $("#submit-form").on('click', function (e) {
             e.preventDefault();
