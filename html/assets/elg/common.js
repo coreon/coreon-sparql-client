@@ -1,4 +1,4 @@
-define("elg/common", ["jquery", "mdc"], function ($, mdc) {
+define("elg/common", ["jquery", "mdc", "elg/sample-fetcher"], function ($, mdc, sampleFetcher) {
 
     return (function () {
         function ElgCommon(readyCallback, afterErrorCallback, qResponse, submitProgress) {
@@ -133,22 +133,21 @@ define("elg/common", ["jquery", "mdc"], function ($, mdc) {
                     },
                     complete: function () {
                         if (this_.samplesFile) {
-                            $.ajax({
-                                url: this_.samplesFile,
-                                success: function(data) {
+                            // load the sample helper configuration from gui-ie - this is more robust
+                            // than keeping a local copy of the config as it will automatically adapt
+                            // if the gui-ie config adds more helpers in future, but harder to test
+                            // in a local environment.
+                            sampleFetcher("/dev/gui-ie/config/sample-helpers.json").then(function (fetcher) {
+                                fetcher.fetchSample("text", this_.samplesFile).done(function(data) {
                                     var meta = this_.fetchRepoMeta(data);
                                     this_.renderRepoMeta(meta, qResponse);
-                                },
-                                error: function (jqXHR, textStatus, errorThrown) {
+                                }).fail(function (errors) {
                                     console.log('Failed to fetch repository meta file');
-                                },
-                                complete: function () {
-                                    readyCallback();
-                                }
+                                }).always(readyCallback);
                             });
+                        } else {
+                            readyCallback();
                         }
-
-                        readyCallback();
                     }
                 }));
             } else {

@@ -35,7 +35,7 @@ The UI consists of a form that contains a textarea input. Use this input to buil
 
 ### Parsing and rendering metadata
 
-In the case where the client app is hosted within an iframe, the parent application may expose the url to one or multiple HTML files, containing metadata related to the source that is being queried. In the case of Coreon, this source is a repository. In the case of multiple repositories that can be accessed, there must be one HTML file for each corresponding repository. These HTML files must be placed under a directory with the name "samples", which, itself is placed within the "html" directory of the client application.
+In the case where the client app is hosted within an iframe, the parent application may expose the url to one or multiple HTML files, containing metadata related to the source that is being queried. In the case of Coreon, this source is a repository. In the case of multiple repositories that can be accessed, there must be one HTML file for each corresponding repository. These HTML files must be placed somewhere that can be downloaded by this JavaScript, which means either within this repository (under a directory with the name "samples", which, itself is placed within the "html" directory) or uploaded to the usual ELG public data repository via the ELG metadata editor.
 
 The client app can fetch and display the repository's name, description and sample queries.
 
