@@ -83,3 +83,11 @@ td.elg-expand-control {
 a.elg-feature-value-url {
     white-space: nowrap;
 }
+
+/* sample helper iframes should be invisible */
+iframe.sample-helper-iframe {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 0;
+}

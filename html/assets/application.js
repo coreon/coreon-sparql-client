@@ -15,6 +15,8 @@ requirejs.config({ //this initiates the configuration
         bootstrap: 'assets/lib/bootstrap',
         "mdc":"https://unpkg.com/material-components-web@5.1.0/dist/material-components-web.min",
         "elg/common": "assets/elg/common",
+        // use sample-fetcher from gui-ie to support samples in S3 storage
+        "elg/sample-fetcher": "/dev/gui-ie/assets/elg/sample-fetcher",
     }
 });
 
